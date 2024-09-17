@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript">
+        function toggleCheckboxes(checkbox) {
+            var adminCheckbox = document.getElementById("roleAdmin");
+            var userCheckbox = document.getElementById("roleUser");
+
+            if (checkbox === adminCheckbox) {
+                userCheckbox.checked = false;
+            } else if (checkbox === userCheckbox) {
+                adminCheckbox.checked = false;
+            }
+        }
+    </script>
+</head>
+<body>
+
+<form th:method="post" th:action="@{/userupdate}" th:object="${user}">
+    <label for="id">ID</label>
+    <input type="text" readonly="readonly" th:field="*{id}" id="id"/>
+    </br>
+    <label for="name">Name</label>
+    <input type="text" th:field="*{name}" id="name"/>
+    </br>
+    <label for="surname">Surname</label>
+    <input type="text" th:field="*{surname}" id="surname"/>
+    </br>
+    <label for="email">Email</label>
+    <input type="text" th:field="*{email}" id="email"/>
+    </br>
+    <label for="username">Username</label>
+    <input type="text" readonly="readonly" th:field="*{username}" id="username"/>
+    </br>
+    <label for="password">Password</label>
+    <input type="password" th:field="*{password}" id="password"/>
+    </br>
+
+    <div>
+        <label>Roles:</label>
+        <ul>
+            <li th:each="role : ${allRoles}">
+                <input type="checkbox" th:field="*{roles}" th:value="${role.id}" />
+                <span th:text="${role.name}"></span>
+            </li>
+        </ul>
+    </div>
+
+    <input type="submit" value="Обновить"/>
+</form>
+</body>
+</html>
